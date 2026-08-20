@@ -46,7 +46,7 @@ PANEL_KEY_FILE=/path/privkey.pem \
 
 ## 工作方式
 
-面板为每个客户创建独立入站端口，并以 `iptables` / `ip6tables` 计数器统计该端口的上下行流量。计数规则只统计流量，不改变防火墙的放行策略。面板每 10 秒把增量写入 SQLite；达到配额或到期后，从运行配置中移除对应入站并热重载 sing-box。
+面板为每个客户创建独立入站端口，并以可用的 `iptables` / `ip6tables` 计数器统计该端口的上下行流量。某些 VPS 内核禁止使用 IPv6 防火墙模块，安装器会自动跳过不可用的 `ip6tables`，不影响 IPv4 节点。计数规则只统计流量，不改变防火墙的放行策略。面板每 10 秒把增量写入 SQLite；达到配额或到期后，从运行配置中移除对应入站并热重载 sing-box。
 
 面板数据保存在 `/var/lib/sbox-panel/panel.db`，配置位于 `/etc/sbox-panel/config.json`。每次修改 sing-box 配置前都会备份到 `/root/sbox/sbconfig_server.json.panel-backup`。
 
@@ -54,4 +54,5 @@ PANEL_KEY_FILE=/path/privkey.pem \
 
 - 云厂商安全组必须允许面板创建的节点端口，默认范围为 `20000-50000`。
 - Let’s Encrypt IP 证书是短周期证书，安装器会配置 acme.sh 自动续期；生产环境仍建议使用域名证书或受信任的反向代理。
-- Hysteria2 统计依赖服务器系统的 `iptables` 兼容层；安装器会自动安装。
+- Hysteria2 统计依赖服务器系统可用的 `iptables` 兼容层；不可用的 IPv6 规则会自动跳过。
+- 面板使用 HTTPS；自签名证书首次访问会显示浏览器警告，TLS 默认限制为兼容性更好的 TLS 1.2。

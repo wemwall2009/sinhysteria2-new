@@ -338,10 +338,11 @@ class Accounting(object):
     def commands(self):
         available = []
         for command in ("iptables", "ip6tables"):
-            if shutil.which(command):
+            binary = shutil.which(command)
+            if binary and run([binary, "-w", "2", "-L"], check=False).returncode == 0:
                 available.append(command)
         if not available:
-            raise PanelError("未安装 iptables/ip6tables，无法统计流量")
+            raise PanelError("未安装或无法使用 iptables/ip6tables，无法统计流量")
         return available
 
     def command(self, binary, arguments, check=True):
@@ -840,6 +841,10 @@ def serve(config_path):
     panel.start()
     server = Server((panel.config.get("listen", "0.0.0.0"), int(panel.config.get("port", 2095))), panel)
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    # Some older VPS kernels/OpenSSL stacks fail during TLS 1.3 negotiation.
+    # TLS 1.2 remains broadly compatible with browsers and avoids a dead socket.
+    context.minimum_version = ssl.TLSVersion.TLSv1_2
+    context.maximum_version = ssl.TLSVersion.TLSv1_2
     context.load_cert_chain(panel.config["cert_file"], panel.config["key_file"])
     server.socket = context.wrap_socket(server.socket, server_side=True)
     print("sbox-panel %s listening on https://%s:%s" % (APP_VERSION, *server.server_address))
