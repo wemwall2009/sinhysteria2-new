@@ -35,6 +35,25 @@ bash <(curl -fsSL https://github.com/vveg26/sing-box-reality-hysteria2/raw/main/
 - 支持warp，任意门，ss解锁流媒体
 - 支持任意门中转
 - 支持端口跳跃
+- 可选 Web 管理面板：多客户节点、到期时间、流量配额、启停、链接和二维码
+
+### Web 管理面板
+
+先使用 `install.sh` 完成 Reality + Hysteria2 安装，再执行：
+
+```bash
+cd panel
+chmod +x install-panel.sh
+./install-panel.sh
+```
+
+详细说明见 [panel/README.md](panel/README.md)。
+
+无人值守安装时需要显式启用面板并提供密码：
+
+```bash
+INSTALL_PANEL=true PANEL_PASSWORD='change-this-password' bash install.sh
+```
 
 ### warp自定义解锁功能
 ![](https://img.mareep.net/blog/2023/12/d6fbf369c96dbabb160e67f76dac0d6d.jpg)

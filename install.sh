@@ -1876,6 +1876,19 @@ if /root/sbox/sing-box check -c /root/sbox/sbconfig_server.json; then
     systemctl restart sing-box
     install_shortcut
     show_client_configuration
+    install_panel_answer=${INSTALL_PANEL:-false}
+    if [[ -t 0 ]]; then
+        echo ""
+        read -r -p "是否安装 Web 管理面板（多客户/时间/流量配额）? [Y/n]: " install_panel_answer
+        install_panel_answer=${install_panel_answer:-Y}
+    fi
+    if [[ ${install_panel_answer} =~ ^([Yy]|true|TRUE|1)$ ]]; then
+        if [[ -f "$(dirname -- "${BASH_SOURCE[0]}")/panel/install-panel.sh" ]]; then
+            bash "$(dirname -- "${BASH_SOURCE[0]}")/panel/install-panel.sh"
+        else
+            bash <(curl -fsSL https://github.com/wemwall2009/sing-box-reality-hysteria2/raw/main/panel/install-panel.sh)
+        fi
+    fi
     warning "输入mianyang,即可打开菜单"
 else
     error "配置文件检查失败，启动失败!"
