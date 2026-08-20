@@ -1,7 +1,7 @@
 ## 先随意安装reality
 例如二合一：
 ```bash
-bash <(curl -fsSL https://github.com/wemwall2009/sing-box-reality-hysteria2/raw/main/install.sh)
+bash <(curl -fsSL https://github.com/wemwall2009/sinhysteria2-new/raw/main/install.sh)
 ```
 ## 申请证书
 ```shell

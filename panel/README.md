@@ -17,7 +17,7 @@
 ```bash
 cd panel
 chmod +x install-panel.sh
-./install-panel.sh
+bash install-panel.sh
 ```
 
 自动化安装：
@@ -27,13 +27,13 @@ PANEL_USER=admin \
 PANEL_PASSWORD='change-this-password' \
 PANEL_PORT=2095 \
 SERVER_ADDRESS=203.0.113.10 \
-./install-panel.sh
+bash install-panel.sh
 ```
 
 安装器默认尝试使用 Let’s Encrypt 为公网 IP/域名申请受信任证书。申请需要 TCP 80 空闲且云安全组已放行；申请失败时自动回退为自签名证书。可显式关闭：
 
 ```bash
-PANEL_LETSENCRYPT=false ./install-panel.sh
+PANEL_LETSENCRYPT=false bash install-panel.sh
 ```
 
 已有受信任证书时，可以传入：

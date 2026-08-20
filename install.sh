@@ -94,7 +94,7 @@ install_pkgs() {
 install_shortcut() {
   cat > /root/sbox/mianyang.sh << EOF
 #!/usr/bin/env bash
- bash <(curl -fsSL https://github.com/wemwall2009/sing-box-reality-hysteria2/raw/main/install.sh) \$1
+ bash <(curl -fsSL https://github.com/wemwall2009/sinhysteria2-new/raw/main/install.sh) \$1
 EOF
   chmod +x /root/sbox/mianyang.sh
   ln -sf /root/sbox/mianyang.sh /usr/bin/mianyang
@@ -1886,7 +1886,7 @@ if /root/sbox/sing-box check -c /root/sbox/sbconfig_server.json; then
         if [[ -f "$(dirname -- "${BASH_SOURCE[0]}")/panel/install-panel.sh" ]]; then
             bash "$(dirname -- "${BASH_SOURCE[0]}")/panel/install-panel.sh"
         else
-            bash <(curl -fsSL https://github.com/wemwall2009/sing-box-reality-hysteria2/raw/main/panel/install-panel.sh)
+             bash <(curl -fsSL https://github.com/wemwall2009/sinhysteria2-new/raw/main/panel/install-panel.sh)
         fi
     fi
     warning "输入mianyang,即可打开菜单"

@@ -44,7 +44,7 @@ bash <(curl -fsSL https://github.com/wemwall2009/sinhysteria2-new/raw/main/insta
 ```bash
 cd panel
 chmod +x install-panel.sh
-./install-panel.sh
+bash install-panel.sh
 ```
 
 详细说明见 [panel/README.md](panel/README.md)。
